@@ -9,10 +9,6 @@ function FeedbackList({ feedback, handleDelete }) {
     return <p>No Feedback Yet</p>;
   }
 
-  useEffect(() => {
-    console.log(feedback);
-  }, [feedback]);
-
   return (
     <div className="feedback-list">
       <AnimatePresence>
