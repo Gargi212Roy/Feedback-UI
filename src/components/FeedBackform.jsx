@@ -1,15 +1,17 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Card from "./shared/Card";
 import Button from "./shared/Button";
 import RatingSelect from "./RatingSelect";
-function FeedBackform({ handleAdd }) {
+import FeedbackContext from "../context/FeedbackContext";
+function FeedBackform() {
   const [text, setText] = useState("");
   // connect the input to the above piece of state so that when i type in it has to be put in the piece of state
   const [rating, setRating] = useState(10);
 
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState("");
+  const { addFeedBack } = useContext(FeedbackContext);
 
   const handleTextChange = (e) => {
     // validation will be done here
@@ -36,7 +38,7 @@ function FeedBackform({ handleAdd }) {
 
         rating: rating,
       };
-      handleAdd(newFeedBack);
+      addFeedBack(newFeedBack);
       setText("");
     }
   };

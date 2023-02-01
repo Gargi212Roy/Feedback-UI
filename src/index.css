@@ -148,6 +148,20 @@ input:focus {
   border: none;
 }
 
+/* .close {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  animation: fadeout 20s linear forwards;
+} */
+/* @keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+} */
 .edit {
   right: 40px;
 }

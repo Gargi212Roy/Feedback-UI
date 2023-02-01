@@ -1,43 +1,25 @@
-// import logo from './logo.svg';
-import { v4 as uuidv4 } from "uuid";
 // whenever we wanna generate a id we can use *uuidv4*
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  NavLink,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //browserrouter uses the html5 history api to keep our ui in sync with the URL
 //hashrouter uses hash portion of the url to keep it in sync
-import Card from "./components/shared/Card";
-import React, { useState } from "react";
+
+import React from "react";
 import "./App.css";
 import Header from "./components/Header";
 // import FeedbackItem from './components/FeedbackItem';//not needed as we need more feedback not just a single one
 import FeedbackList from "./components/FeedbackList";
-import feedbackData from "./data/feedbackData";
+
 import FeedBackStats from "./components/FeedBackStats";
 import FeedBackform from "./components/FeedBackform";
 import AboutPage from "./pages/AboutPage";
+import { FeedbackProvider } from "./context/FeedbackContext";
 import AboutIconLink from "./components/AboutIconLink";
 
 function App() {
-  const [feedback, setFeedback] = useState(feedbackData);
   // set is immutable we cannot change it we need to make a copy  a of it
 
-  const addFeedBack = (newFeedBack) => {
-    newFeedBack.id = uuidv4();
-    setFeedback([newFeedBack, ...feedback]);
-    // here we are taking all the objects that are already in the feedback and putting in into the array and in front er put newFeedBack, now it'll include both current feedback and new gfeedback
-  };
-
-  const deleteFeedback = (id) => {
-    if (window.confirm("Are you sure you want to delete?")) {
-      setFeedback(feedback.filter((item) => item.id !== id));
-    }
-  };
   return (
-    <>
+    <FeedbackProvider>
       {/* <Header bgColor='red' textColor='blue' /> */}
       <Router>
         <Header />
@@ -47,12 +29,9 @@ function App() {
               path="/"
               element={
                 <>
-                  <FeedBackform handleAdd={addFeedBack} />
-                  <FeedBackStats feedback={feedback} />
-                  <FeedbackList
-                    feedback={feedback}
-                    handleDelete={deleteFeedback}
-                  />
+                  <FeedBackform />
+                  <FeedBackStats />
+                  <FeedbackList />
                 </>
               }
             ></Route>
@@ -62,7 +41,7 @@ function App() {
         </div>
         <AboutIconLink />
       </Router>
-    </>
+    </FeedbackProvider>
   );
 }
 
