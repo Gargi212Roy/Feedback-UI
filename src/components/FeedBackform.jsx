@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Card from "./shared/Card";
 import Button from "./shared/Button";
 import RatingSelect from "./RatingSelect";
@@ -11,7 +11,16 @@ function FeedBackform() {
 
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState("");
-  const { addFeedBack } = useContext(FeedbackContext);
+  const { addFeedBack, feedbackEdit, updateFeedback } = useContext(
+    FeedbackContext
+  );
+  useEffect(() => {
+    if (feedbackEdit.edit === true) {
+      setBtnDisabled(false);
+      setText(feedbackEdit.item.text);
+      setRating(feedbackEdit.item.rating); //rating doesn't sjow yet by  calling only this --> the rating ios getting set in the state for the form but we're unable to see it because it is not showing in the RatingSelect tag
+    }
+  }, [feedbackEdit]);
 
   const handleTextChange = (e) => {
     // validation will be done here
@@ -38,6 +47,11 @@ function FeedBackform() {
 
         rating: rating,
       };
+      if (feedbackEdit.edit === true) {
+        updateFeedback(feedbackEdit.item.id, newFeedBack);
+      } else {
+        addFeedBack(newFeedBack);
+      }
       addFeedBack(newFeedBack);
       setText("");
     }
