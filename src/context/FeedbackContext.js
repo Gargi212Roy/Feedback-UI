@@ -1,33 +1,31 @@
-import { editableInputTypes } from "@testing-library/user-event/dist/utils/edit/isEditable";
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 // import logo from './logo.svg';
 import { v4 as uuidv4 } from "uuid";
 const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({ children }) => {
-  const [feedback, setFeedback] = useState([
-    {
-      id: 1,
-      text: "This item 1",
-      rating: 10,
-    },
-    {
-      id: 2,
-      text: "This item 2",
-      rating: 10,
-    },
-    {
-      id: 3,
-      text: "This item 3",
-      rating: 8,
-    },
-  ]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [feedback, setFeedback] = useState([]);
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
     // whenever we click on one of the pencil items --> that item along with their particular id, the rating and the text will go into that item
     edit: false,
     // if we click on the pencil button edit will be set to true---> we are in edit mode
   });
+  useEffect(() => {
+    fetchFeedback();
+  }, []);
+
+  // Fetch feedback
+  const fetchFeedback = async () => {
+    const response = await fetch(
+      `http://localhost:4000/feedback?_sort=id&_order=desc`
+    );
+    const data = await response.json();
+    setFeedback(data);
+    setIsLoading(false);
+  };
+
   const addFeedBack = (newFeedBack) => {
     newFeedBack.id = uuidv4();
     setFeedback([newFeedBack, ...feedback]);
@@ -59,6 +57,7 @@ export const FeedbackProvider = ({ children }) => {
       value={{
         feedback,
         feedbackEdit, //the piece of state that holds the item and the boolean
+        isLoading,
         deleteFeedback,
         addFeedBack,
         editFeedback, //this function runs when feedbackEdit is called
