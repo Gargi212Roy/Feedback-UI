@@ -1,7 +1,5 @@
-import { isDisabled } from "@testing-library/user-event/dist/utils";
 import React from "react";
 import PropTypes from "prop-types";
-import { type } from "@testing-library/user-event/dist/type";
 
 function Button({ children, version, type, isDisabled }) {
   //it'll take props taht we need tp destructure: children----> wrap the component ROUND the text for the button , version --> primary or seconadry pertaining to a class, type---> whether a submit or regular, disabled---> if true  btn---> basic paddinga nd margin

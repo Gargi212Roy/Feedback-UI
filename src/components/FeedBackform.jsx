@@ -66,7 +66,7 @@ function FeedBackform() {
           <input
             onChange={handleTextChange}
             type="text"
-            placeholder="Wrie a Review"
+            placeholder="Write a Review"
             value={text}
           />
           <Button type="submit" isDisabled={btnDisabled}>

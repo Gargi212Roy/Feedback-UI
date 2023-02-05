@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-// import logo from './logo.svg';
-import { v4 as uuidv4 } from "uuid";
+
 const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({ children }) => {
@@ -18,17 +17,23 @@ export const FeedbackProvider = ({ children }) => {
 
   // Fetch feedback
   const fetchFeedback = async () => {
-    const response = await fetch(
-      `http://localhost:4000/feedback?_sort=id&_order=desc`
-    );
+    const response = await fetch(`/feedback?_sort=id&_order=desc`);
     const data = await response.json();
     setFeedback(data);
     setIsLoading(false);
   };
 
-  const addFeedBack = (newFeedBack) => {
-    newFeedBack.id = uuidv4();
-    setFeedback([newFeedBack, ...feedback]);
+  const addFeedBack = async (newFeedBack) => {
+    const response = await fetch("/feedback", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newFeedBack),
+    });
+    const data = await response.json();
+    //  we don't need uuid to set our id because json server works like most databases/backends, it creates ID automatically so we can get rid of that
+    setFeedback([data, ...feedback]);
     // here we are taking all the objects that are already in the feedback and putting in into the array and in front er put newFeedBack, now it'll include both current feedback and new gfeedback
   };
 
