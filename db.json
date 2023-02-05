@@ -16,19 +16,9 @@
       "text": "This is Feedback item 1 coming from fake backend --> 3"
     },
     {
-      "text": "why is feedback coming twice in POST method??",
+      "text": "is post method working???",
       "rating": 10,
       "id": 4
-    },
-    {
-      "text": "is it finally coming once??",
-      "rating": 10,
-      "id": 5
-    },
-    {
-      "text": "is it finally coming once??",
-      "rating": 10,
-      "id": 6
     }
   ]
 }

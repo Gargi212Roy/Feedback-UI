@@ -52,7 +52,7 @@ function FeedBackform() {
       } else {
         addFeedBack(newFeedBack);
       }
-      addFeedBack(newFeedBack);
+
       setText("");
     }
   };
