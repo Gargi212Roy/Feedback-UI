@@ -14,11 +14,6 @@
       "id": 3,
       "rating": 5,
       "text": "This is Feedback item 1 coming from fake backend --> 3"
-    },
-    {
-      "rating": "8",
-      "text": "new feedback from postman\n\n",
-      "id": 4
     }
   ]
 }
